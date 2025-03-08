@@ -1,4 +1,4 @@
-package com.example.SpringBoot.dao;
+package com.example.SpringBoot.repository;
 
 
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface UserDAO extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }

@@ -1,6 +1,6 @@
 package com.example.SpringBoot.service;
 
-import com.example.SpringBoot.dao.UserDAO;
+import com.example.SpringBoot.repository.UserRepository;
 import com.example.SpringBoot.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,28 +9,28 @@ import java.util.List;
 
 @Service
 public class UserServiceImp {
-    private final UserDAO userDAO;
+    private final UserRepository userRepository;
 
-    public UserServiceImp(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UserServiceImp(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public List<User> getAllUsers() {
-        return userDAO.findAll();
+        return userRepository.findAll();
     }
 
     @Transactional
     public void saveUser(User user) {
-        userDAO.save(user);
+        userRepository.save(user);
     }
 
     @Transactional
     public void deleteUser(Long id) {
-        userDAO.deleteById(id);
+        userRepository.deleteById(id);
     }
 
     @Transactional
     public void updateUser(User user) {
-        userDAO.save(user);
+        userRepository.save(user);
     }
 }

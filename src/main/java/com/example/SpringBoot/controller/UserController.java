@@ -1,7 +1,7 @@
 package com.example.SpringBoot.controller;
 
 import com.example.SpringBoot.model.User;
-import com.example.SpringBoot.service.UserServiceImp;
+import com.example.SpringBoot.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-    private final UserServiceImp userServiceImp;
+    private final UserService userService;
 
-    public UserController(UserServiceImp userServiceImp) {
-        this.userServiceImp = userServiceImp;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
     public String getUsers(Model model) {
         model.addAttribute("name", "User");
-        model.addAttribute("users", userServiceImp.getAllUsers());
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
 
@@ -39,7 +39,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "new";
         }
-        userServiceImp.saveUser(user);
+        userService.save(user);
         return "redirect:/users";
     }
 
@@ -56,7 +56,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
-        userServiceImp.updateUser(user);
+        userService.update(user);
         return "redirect:/users";
     }
 
@@ -69,7 +69,7 @@ public class UserController {
 
     @PostMapping("delete")
     public String delete(@ModelAttribute("id") Long id) {
-        userServiceImp.deleteUser(id);
+        userService.deleteById(id);
         return "redirect:/users";
     }
 }
